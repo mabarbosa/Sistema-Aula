@@ -105,3 +105,5 @@ C:\Users\Fak3p\source\repos\Sistema - API\Sistema.API\obj\Debug\Sistema.API.cspr
 C:\Users\Fak3p\source\repos\Sistema - API\Sistema.API\obj\Debug\Sistema.API.csproj.CopyComplete
 C:\Users\Fak3p\source\repos\Sistema - API\Sistema.API\obj\Debug\Sistema.API.dll
 C:\Users\Fak3p\source\repos\Sistema - API\Sistema.API\obj\Debug\Sistema.API.pdb
+C:\Users\Fak3p\source\repos\Sistema - API\Sistema.API\bin\EntityFramework.SqlServer.dll
+C:\Users\Fak3p\source\repos\Sistema - API\Sistema.API\bin\EntityFramework.SqlServer.xml

@@ -20,7 +20,7 @@ namespace Sistema.Negocio.PessoaNegocio
         #endregion
 
         #region PESSOA
-        public IList<Pessoa> BuscaTodasPessoas()
+        public virtual IList<Pessoa> BuscaTodasPessoas()
         {
             return pessoaDAO.BuscaTodasPessoas();
         }
@@ -35,8 +35,17 @@ namespace Sistema.Negocio.PessoaNegocio
 
         public Pessoa SelecionaPessoaPorNome(String pessoa)
         {
+            Pessoa _pessoa = null;
+
             if (!String.IsNullOrEmpty(pessoa))
-                return pessoaDAO.SelecionaPessoaPorNome(pessoa);
+            {
+                _pessoa = pessoaDAO.SelecionaPessoaPorNome(pessoa);
+
+                if (_pessoa == null)
+                    throw new Exception("nulo");
+
+                return _pessoa;
+            }
 
             throw new Exception("Por favor, informe um nome.");
         }

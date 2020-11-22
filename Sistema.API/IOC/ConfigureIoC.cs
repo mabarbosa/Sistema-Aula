@@ -29,18 +29,13 @@ namespace Sistema.WebAPI.IOC
         }
         private void regiterDB()
         {
-            container.RegisterType<EstudodbEntities>(new HierarchicalLifetimeManager(),
-                                            new InjectionFactory(c =>
-                                            {
-                                                return new EstudodbEntities();
-                                            })
-                                        );
+            container.RegisterFactory<EstudodbEntities>(c => { return new EstudodbEntities(); }, FactoryLifetime.Hierarchical);
         }
 
         private void registerDependencies()
         {
-            container.RegisterType<IPessoaNegocio, PessoaNegocio>(new HierarchicalLifetimeManager());
-            container.RegisterType<IPessoaDados, PessoaDados>(new HierarchicalLifetimeManager());
+            container.RegisterType<IPessoaNegocio, PessoaNegocio>(TypeLifetime.Hierarchical);
+            container.RegisterType<IPessoaDados, PessoaDados>(TypeLifetime.Hierarchical);
         }
     }
 }
