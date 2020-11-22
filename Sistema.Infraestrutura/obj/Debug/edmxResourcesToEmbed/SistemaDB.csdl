@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EstudodbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Pessoa">
+    <Key>
+      <PropertyRef Name="codPessoa" />
+    </Key>
+    <Property Name="codPessoa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codProfissao" Type="Int32" />
+    <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sobrenome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="idade" Type="Int32" />
+    <Property Name="dataNascimento" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Profissao" Relationship="Self.FK_tbPessoa_tbProfissao" FromRole="tbPessoa" ToRole="tbProfissao" />
+    <Property Name="sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Profissao">
+    <Key>
+      <PropertyRef Name="codProfissao" />
+    </Key>
+    <Property Name="codProfissao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="salario" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="dataAdmissao" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_tbPessoa_tbProfissao">
+    <End Role="tbProfissao" Type="EstudodbModel.Profissao" Multiplicity="0..1" />
+    <End Role="tbPessoa" Type="EstudodbModel.Pessoa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbProfissao">
+        <PropertyRef Name="codProfissao" />
+      </Principal>
+      <Dependent Role="tbPessoa">
+        <PropertyRef Name="codProfissao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EstudodbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Pessoa" EntityType="EstudodbModel.Pessoa" />
+    <EntitySet Name="Profissao" EntityType="EstudodbModel.Profissao" />
+    <AssociationSet Name="FK_tbPessoa_tbProfissao" Association="Self.FK_tbPessoa_tbProfissao">
+      <End Role="tbProfissao" EntitySet="Profissao" />
+      <End Role="tbPessoa" EntitySet="Pessoa" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

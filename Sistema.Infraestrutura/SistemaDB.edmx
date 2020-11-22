@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EstudodbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbPessoa">
+          <Key>
+            <PropertyRef Name="codPessoa" />
+          </Key>
+          <Property Name="codPessoa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codProfissao" Type="int" />
+          <Property Name="nome" Type="nvarchar" MaxLength="50" />
+          <Property Name="sobrenome" Type="nvarchar" MaxLength="50" />
+          <Property Name="idade" Type="int" />
+          <Property Name="dataNascimento" Type="datetime" />
+          <Property Name="sexo" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="tbProfissao">
+          <Key>
+            <PropertyRef Name="codProfissao" />
+          </Key>
+          <Property Name="codProfissao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cargo" Type="nvarchar" MaxLength="50" />
+          <Property Name="salario" Type="money" />
+          <Property Name="dataAdmissao" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_tbPessoa_tbProfissao">
+          <End Role="tbProfissao" Type="Self.tbProfissao" Multiplicity="0..1" />
+          <End Role="tbPessoa" Type="Self.tbPessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProfissao">
+              <PropertyRef Name="codProfissao" />
+            </Principal>
+            <Dependent Role="tbPessoa">
+              <PropertyRef Name="codProfissao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EstudodbModelStoreContainer">
+          <EntitySet Name="tbPessoa" EntityType="Self.tbPessoa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbProfissao" EntityType="Self.tbProfissao" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbPessoa_tbProfissao" Association="Self.FK_tbPessoa_tbProfissao">
+            <End Role="tbProfissao" EntitySet="tbProfissao" />
+            <End Role="tbPessoa" EntitySet="tbPessoa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EstudodbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Pessoa">
+          <Key>
+            <PropertyRef Name="codPessoa" />
+          </Key>
+          <Property Name="codPessoa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codProfissao" Type="Int32" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sobrenome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idade" Type="Int32" />
+          <Property Name="dataNascimento" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Profissao" Relationship="Self.FK_tbPessoa_tbProfissao" FromRole="tbPessoa" ToRole="tbProfissao" />
+          <Property Name="sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Profissao">
+          <Key>
+            <PropertyRef Name="codProfissao" />
+          </Key>
+          <Property Name="codProfissao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="salario" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="dataAdmissao" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_tbPessoa_tbProfissao">
+          <End Role="tbProfissao" Type="EstudodbModel.Profissao" Multiplicity="0..1" />
+          <End Role="tbPessoa" Type="EstudodbModel.Pessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProfissao">
+              <PropertyRef Name="codProfissao" />
+            </Principal>
+            <Dependent Role="tbPessoa">
+              <PropertyRef Name="codProfissao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EstudodbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pessoa" EntityType="EstudodbModel.Pessoa" />
+          <EntitySet Name="Profissao" EntityType="EstudodbModel.Profissao" />
+          <AssociationSet Name="FK_tbPessoa_tbProfissao" Association="Self.FK_tbPessoa_tbProfissao">
+            <End Role="tbProfissao" EntitySet="Profissao" />
+            <End Role="tbPessoa" EntitySet="Pessoa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EstudodbModelStoreContainer" CdmEntityContainer="EstudodbEntities">
+          <EntitySetMapping Name="Pessoa">
+            <EntityTypeMapping TypeName="EstudodbModel.Pessoa">
+              <MappingFragment StoreEntitySet="tbPessoa">
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="codPessoa" ColumnName="codPessoa" />
+                <ScalarProperty Name="codProfissao" ColumnName="codProfissao" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="sobrenome" ColumnName="sobrenome" />
+                <ScalarProperty Name="idade" ColumnName="idade" />
+                <ScalarProperty Name="dataNascimento" ColumnName="dataNascimento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profissao">
+            <EntityTypeMapping TypeName="EstudodbModel.Profissao">
+              <MappingFragment StoreEntitySet="tbProfissao">
+                <ScalarProperty Name="codProfissao" ColumnName="codProfissao" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+                <ScalarProperty Name="salario" ColumnName="salario" />
+                <ScalarProperty Name="dataAdmissao" ColumnName="dataAdmissao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
