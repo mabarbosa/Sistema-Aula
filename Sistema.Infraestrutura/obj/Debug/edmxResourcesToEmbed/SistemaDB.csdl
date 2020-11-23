@@ -41,5 +41,16 @@
       <End Role="tbProfissao" EntitySet="Profissao" />
       <End Role="tbPessoa" EntitySet="Pessoa" />
     </AssociationSet>
+    <EntitySet Name="Usuario" EntityType="EstudodbModel.Usuario" />
   </EntityContainer>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="codUsuario" />
+    </Key>
+    <Property Name="codUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="senha" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="perfil" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ativo" Type="Boolean" />
+  </EntityType>
 </Schema>

@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="EstudodbModel.Pessoa" Width="1.5" PointX="8" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="EstudodbModel.Profissao" Width="1.5" PointX="5.625" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="EstudodbModel.FK_tbPessoa_tbProfissao" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EstudodbModel.Usuario" Width="1.5" PointX="3.625" PointY="1.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

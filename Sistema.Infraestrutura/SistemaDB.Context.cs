@@ -27,5 +27,6 @@ namespace Sistema.Infraestrutura
     
         public virtual DbSet<Pessoa> Pessoa { get; set; }
         public virtual DbSet<Profissao> Profissao { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

@@ -26,6 +26,16 @@
           <Property Name="salario" Type="money" />
           <Property Name="dataAdmissao" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbUsuarios">
+          <Key>
+            <PropertyRef Name="codUsuario" />
+          </Key>
+          <Property Name="codUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" />
+          <Property Name="senha" Type="nvarchar" MaxLength="50" />
+          <Property Name="perfil" Type="nvarchar" MaxLength="50" />
+          <Property Name="ativo" Type="bit" />
+        </EntityType>
         <Association Name="FK_tbPessoa_tbProfissao">
           <End Role="tbProfissao" Type="Self.tbProfissao" Multiplicity="0..1" />
           <End Role="tbPessoa" Type="Self.tbPessoa" Multiplicity="*" />
@@ -41,6 +51,7 @@
         <EntityContainer Name="EstudodbModelStoreContainer">
           <EntitySet Name="tbPessoa" EntityType="Self.tbPessoa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbProfissao" EntityType="Self.tbProfissao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbUsuarios" EntityType="Self.tbUsuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tbPessoa_tbProfissao" Association="Self.FK_tbPessoa_tbProfissao">
             <End Role="tbProfissao" EntitySet="tbProfissao" />
             <End Role="tbPessoa" EntitySet="tbPessoa" />
@@ -91,7 +102,18 @@
             <End Role="tbProfissao" EntitySet="Profissao" />
             <End Role="tbPessoa" EntitySet="Pessoa" />
           </AssociationSet>
+          <EntitySet Name="Usuario" EntityType="EstudodbModel.Usuario" />
         </EntityContainer>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="codUsuario" />
+          </Key>
+          <Property Name="codUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="senha" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="perfil" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ativo" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -118,6 +140,17 @@
                 <ScalarProperty Name="cargo" ColumnName="cargo" />
                 <ScalarProperty Name="salario" ColumnName="salario" />
                 <ScalarProperty Name="dataAdmissao" ColumnName="dataAdmissao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="EstudodbModel.Usuario">
+              <MappingFragment StoreEntitySet="tbUsuarios">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="perfil" ColumnName="perfil" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="codUsuario" ColumnName="codUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

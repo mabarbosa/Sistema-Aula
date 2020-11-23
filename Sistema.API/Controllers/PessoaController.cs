@@ -21,6 +21,7 @@ namespace Sistema.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ActionName("BuscaPessoas")]
         public HttpResponseMessage BuscaPessoas()
         {
